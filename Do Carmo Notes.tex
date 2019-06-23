@@ -1,0 +1,105 @@
+\documentclass{article}
+% I just hijacked the preamble from the Calc III homeworks
+% because I liked the setup. 
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\fi
+
+\title{Do Carmo Notes}
+\author{}
+\date{}
+\usepackage[headings=runin-fixed-nr]{exsheets}
+\makeatletter
+    \newcommand{\stepenumdepth}{\advance\@enumdepth\@ne}
+\makeatother
+\SetupExSheets{
+    question/pre-body-hook=\stepenumdepth,
+    solution/pre-body-hook=\stepenumdepth,
+}
+\DeclareInstance{exsheets-heading}{runin-nn-np}{default}{
+    runin = true,
+    title-post-code = .\space,
+    join = {
+        main[r,vc]title[l,vc](0pt,0pt);
+    }
+}
+
+
+\usepackage{manfnt}
+\newcommand{\danger}{\marginpar[\hfill\dbend]{\dbend\hfill}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{caption,subcaption}
+\usepackage{hyperref}
+
+%-----------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+\section{Curves}
+\subsection{Elementary Definitions}
+A curve is defined with a map. In particular:\vspace{5mm}
+
+\textbf{DEFINITION:} A \textit{parameterized differentiable curve} is differentiable map $\alpha: I \to \mathbb{R}^3$ of an open interval $I = (a,b)$ of the real line $\mathbb{R}$
+into $\mathbb{R}^3$. \vspace{5mm}
+
+We care primarily about curves that are consistent with our idea of "smoothness", giving the following definition: \vspace{5mm}
+
+\textbf{DEFINITION:} A parameterized differentaible curve $\alpha: I \to \mathbb{R}^3$ is said to be \textit{regular} if $\alpha'(t)$ for all $t \in I$. \vspace{5mm}
+
+\textbf{ARC LENGTH:} The arc length of a regular curve from a point $t_0$ can be defined by the integral: $\displaystyle s(t) = \int_{t_0}^{t} \vert \alpha'(t) \vert \,dt$. This can be thought of as the limit as the length of inscribed polygons.
+
+\subsection{Local Theory of Curves}
+
+\textbf{FRENET FORMULAS:} $$t' = kn$$ $$n' = -kt - \tau b$$ $$b' = \tau b$$ Where \textit{curvature} $k = \vert \alpha''(s) \vert$ is the length of the \textit{normal vector} $\displaystyle n = \frac{\alpha''(s)}{\vert \alpha''(s) \vert}$ and the \textit{binormal vector} is $b(s) = t(s) \wedge n(s)$, the length of the derivative of this vector is the \textit{torsion} of the plane and measure how fast the curve pulls out of the plane spanned by $n(s)$ and $t(s)$ called the \textit{oscullating plane}. Thus torsion is given by $\tau(s) = \vert b'(s) \vert = t(s) \wedge n'(s)$. \vspace{5mm}
+
+\textbf{FUNDAMENTAL THEOREM OF THE LOCAL THEORY OF CURVES:} given functions $\tau(s)$ and $k(s)$ for torsion and curvature there is a unique curve up to rigid motion such that s is arc length, $\tau(s)$ is its torsion and $k(s)$ its curvature. \vspace{5mm}
+
+\textbf{THE LOCAL CANONICAL FORM:} Locally a curve can be written as $$\displaystyle x(x) = s - \frac{k^2s^3}{6} + R_x$$ $$\displaystyle y(s) = \frac{k}{2}s^2 + \frac{k's^3}{6} + R_y$$ $$\displaystyle z(s) = -\frac{k\tau}{6}s^3 + R_z$$. This is found through the third degree Taylor expansion of $\alpha(s)$ at a given point.
+
+\subsection{Global Theory of Curves}
+\textbf{CURRENTLY OMITTED}
+
+\section{Regular Surfaces}
+\subsection{Differentials}
+Do Carmo treats this as though one's coming from something like Spivak but later uses it as though it hasn't been seen, so I chose to include it. Also included the inverse function theorem because it's really cool. \vspace{5mm}
+
+\textbf{DEFINITION:} Let $F: U \subset \mathbb{R}^n \to \mathbb{R}^m$ be a differentiable map. To each $p \in U$ we associate a linear map $dF_p: \mathbb{R}^n \to \mathbb{R}^m$ which is called the \textit{differential} of F at p and is defined as follows. Let $w \in \mathbb{R}^n$ and let $\alpha: (-\epsilon, \epsilon) \to U$ be a differentiable curve such that $\alpha(0) = p$, $\alpha'(0) = w.$ By the chain rule, the curve $\beta = F \circ \alpha: (-\epsilon, \epsilon) \to \mathbb{R}^m$ is also differntiable. Then $$dF_p(w) = \beta'(0)$$
+
+\textbf{INVERSE FUNCTION THEOREM:} Let $F: U \subset \mathbb{R}^n \to \mathbb{R}^n$ be a differentiable mapping and suppose that at $p \in U$ the differentiabl $dF_p: \mathbb{R}^n \to \mathbb{R}^n$ is an isomorphism. Then there exists a neighborhood $V$ of $p$ in $U$ and a neighborhood $W$ or $F(p)$ in $\mathbb{R}^n$ such that $F: V \to W$ has a differentiable inverse $F^{-1}: W \to V$,
+
+\subsection{Regular patches}
+Rather than define a surface as a map, we shall define them as a set and use the concept of a regular patch to make keep them manageable. \vspace{5mm}
+
+\textbf{DEFINITION} A subset $S \subset \mathbb{R}^3$ is a \textit{regular surface} if, for each $p \in S$, there exists a neighborhood $V$ in $\mathbb{R}^3$ and a map $\mathbf{x}:U \to V \cap S$ of an open set $U \subset \mathbb{R}^2$ onto $V \cap \mathbb{R}^3$ such that:
+\begin{enumerate}
+    \item[1] $\mathbf{x}$ is $C^{\infty}$
+    \item[2] $\mathbf{x}$ is a homeomorphism. 
+    \item[3] For each $q \in U$, the differential $d\mathbf{x}_q: \mathbb{R}^2 \to \mathbb{R}^3$ is one-one.
+\end{enumerate}
+The mapping $\mathbf{x}$ is called a \textit{regular patch}, or as Do Carmo likes to call them, a \textit{parameterization}. \vspace{5mm}
+
+\textbf{PROP 1:} If a function is a map from an open set in $\mathbb{R}^2$ to $\mathbb{R}^3$ then it's graph is a regular surface. i.e. the subset of $\mathbb{R}^3$ given by $(x, y, f(x, y))$ is a regular surface. \vspace{5mm}
+
+\textbf{PROP 2:} If $f: U \subset \mathbb{R}^3 \to \mathbb{R}$ is a differentiable function and $a \in f(U)$ is a regular value of f, then $f^{-1}(a)$ is a regular surface in $R^3$. \vspace{5mm}
+Prop 2 is basically just saying that the fiber of a function from $\mathbb{R}^3$ to $\mathbb{R}$ is a regular surface so long as it's not the fiber of a critical point. \vspace{5mm}
+
+\textbf{PROP 3:} There exists a neighborhood $V$ of a point $p$ in regular surface $S$ in $\mathbb{R}^3$ such that $V$ is the graph of a differentiable function where one variable is a function of the two others. \vspace{5mm}
+
+\textbf{PROP 4:} condition 2 of the definition of a regular surface is superfluous is $\mathbf{x}$ is one-one.
+\end{document}
+
+\subsection{Functions on Surfaces}
+
+\textbf{Change of Parameters}: The change of coordinate function $\mathbf{x}^{-1} \circ \mathbf{y}: \mathbf{y}^{-1}(W) \to \mathbf{x}(W)$, where $\mathbf{x}(U) \cap \mathbf{y}(U) = W$ is a diffeomorphism. \vspace{5mm}
+
+\textbf{DEFINITION:} A continuous map $\phi: V_1 \subset S_1 \to S_2$ of an open set $V_1$ of regular surface $S_1$ is said to be \textit{differentiable at p} if, given parameterizations $\mathbf{x}_1: \U_1 \subset \mathbb{R}^2 \to S_1$, $\mathbf{x}_2: U_2 \in \mathbb{R}^2 \to S_2$, with $p \in \mathbf{x}_1(U)$ and $\phi(\mathbf{x}_1(U_1)) \subset \mathbf{x}_2(U_2)$, the map $\mathbf{x}_2^{-1} \circ \phi \circ \mathbf{x}_1: U_1 \to U_2$ is differentiable at $q = \mathbf{x}_1^{-1}(p)$.
